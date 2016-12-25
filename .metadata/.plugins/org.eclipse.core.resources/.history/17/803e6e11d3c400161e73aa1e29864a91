@@ -1,0 +1,62 @@
+package org.shina.FirstRestAPI;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import model.Student;
+
+/**
+ * Root resource (exposed at "myresource" path)
+ */
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Path("myresource")
+public class MyResource {
+
+    /**
+     * Method handling HTTP GET requests. The returned object will be sent
+     * to the client as "text/plain" media type.
+     *
+     * @return String that will be returned as a text/plain response.
+     */
+	
+    @GET
+    @Path("/result")
+     public Student getIt() {
+    	Student s = new Student();
+    	s.setName("shina");
+    	s.setAddress("avenue");
+        return s;
+        
+//        public String getIt() {
+//            return "Got it!";
+    }
+    @GET
+    @Path("/result/{name}")
+     public Student getName(String name) {
+    	Student s1 = new Student();
+    	s1.setName("shina");
+    	s1.setAddress("avenue");
+    	Student s2 = new Student();
+    	s2.setName("tarak");
+    	s2.setAddress("avenue");
+    	Student s3 = new Student();
+    	s3.setName("amin");
+    	s3.setAddress("avenue");
+    	Collection<Student> sList = new ArrayList<>();
+    	sList.add(s1);
+    	sList.add(s2);
+    	sList.add(s3);
+    	Student res = sList.stream().filter(ss -> ss.getName().equals(name)).findFirst().get();
+        return res;
+        
+//        public String getIt() {
+//            return "Got it!";
+    }
+}
